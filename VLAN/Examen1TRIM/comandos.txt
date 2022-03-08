@@ -1,0 +1,144 @@
+# SW PRINCIPAL
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 10
+Switch(config-vlan)#name directivos
+Switch(config-vlan)#vlan 20
+Switch(config-vlan)#name empleados
+Switch(config-vlan)#vlan 30
+Switch(config-vlan)#name I+D
+Switch(config-vlan)#vlan 99
+Switch(config-vlan)#name DMZ
+Switch(config-vlan)#interface f0/22
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20,99
+Switch(config-if)#interface f0/23
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20
+Switch(config-if)#interface f0/24
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20,30,99
+Switch(config-if)#interface g0/2
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20,30,99
+Switch(config-if)#interface g0/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 99
+
+
+# SW P0
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 10
+Switch(config-vlan)#name directivos
+Switch(config-vlan)#vlan 20
+Switch(config-vlan)#name empleados
+Switch(config-vlan)#vlan 99
+Switch(config-vlan)#name DMZ
+Switch(config-vlan)#interface range f0/1-5
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 10
+Switch(config-if-range)#interface f0/6
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 99
+Switch(config-if)#interface g0/2
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+Switch(config-if)#interface g0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20,99
+
+# SW P1
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 10
+Switch(config-vlan)#name directivos
+Switch(config-vlan)#vlan 20
+Switch(config-vlan)#name empleados
+Switch(config-vlan)#interface range f0/1-6
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 10
+Switch(config-if-range)#interface g0/2
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+Switch(config-if)#interface g0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20
+
+# SW P2
+
+Switch>enable
+Switch#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 10
+Switch(config-vlan)#name directivos
+Switch(config-vlan)#vlan 20
+Switch(config-vlan)#name empleados
+Switch(config-vlan)#vlan 30
+Switch(config-vlan)#name i+d
+Switch(config-vlan)#vlan 99
+Switch(config-vlan)#name DMZ
+Switch(config-vlan)#interface range f0/1-5
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 10
+Switch(config-if-range)#interface f0/6
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 99
+Switch(config-if)#interface f0/24
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+Switch(config-if)#interface g0/2
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 30
+Switch(config-if)#interface g0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20,30,99
+# RN-FW
+
+Router>enable
+Router#configure terminal
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface g0/0
+Router(config-if)#no shutdown
+
+Router(config-if)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0, changed state to up
+
+Router(config-if)#interface g0/0.10
+Router(config-subif)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0.10, changed state to up
+
+Router(config-subif)#ip address 192.168.10.1 255.255.255.0
+
+% Configuring IP routing on a LAN subinterface is only allowed if that
+subinterface is already configured as part of an IEEE 802.10, IEEE 802.1Q,
+or ISL vLAN.
+
+Router(config-subif)#encapsulation dot1Q 10
+Router(config-subif)#interface g0/0.20
+Router(config-subif)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0.20, changed state to up
+
+Router(config-subif)#ip address 192.168.20.1 255.255.255.0
+
+% Configuring IP routing on a LAN subinterface is only allowed if that
+subinterface is already configured as part of an IEEE 802.10, IEEE 802.1Q,
+or ISL vLAN.
+
+Router(config-subif)#encapsulation dot1Q 20
+Router(config-subif)#interface g0/0.30
+Router(config-subif)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0.30, changed state to up
+
+Router(config-subif)#encapsulation dot1Q 30
+Router(config-subif)#ip address 192.168.30.1 255.255.255.0
+Router(config-subif)#interface g0/0.99
+Router(config-subif)#
+%LINK-5-CHANGED: Interface GigabitEthernet0/0.99, changed state to up
+
+Router(config-subif)#encapsulation dot1Q 99
+Router(config-subif)#ip address 192.168.99.2 255.255.255.0
+Router(config-subif)#
