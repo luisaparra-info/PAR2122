@@ -171,6 +171,13 @@ Router(config-subif)#interface g1/0.20
 Router(config-subif)#encapsulation dot1Q 20
 Router(config-subif)#ip address 172.16.1.1 255.255.255.0
 
+Router(config)#ip route 172.16.2.0 255.255.255.0 172.16.1.2
+Router(config)#ip route 172.16.2.0 255.255.255.0 172.16.0.3
+Router(config)#ip route 0.0.0.0 0.0.0.0 172.16.4.1
+-- Error
+Router(config)#no ip route 172.16.2.0 255.255.255.0 172.16.0.3
+Router(config)#ip route 172.16.3.0 255.255.255.0 172.16.0.3
+
 #R3
 Router>enable
 Router#configure terminal
@@ -187,6 +194,9 @@ Router(config-if)#interface g2/0
 Router(config-if)#ip address 172.16.2.1 255.255.255.0
 Router(config-if)#no shutdown
 
+Router(config)#ip route 172.16.3.0 255.255.255.0 172.16.0.3
+Router(config)#ip route 0.0.0.0 0.0.0.0 172.16.1.1
+
 #R4
 Router>enable
 Router#configure terminal
@@ -198,3 +208,6 @@ Router(config-if)#no shutdown
 Router(config-if)#interface g1/0
 Router(config-if)#ip address 172.16.3.1 255.255.255.0
 Router(config-if)#no shutdown
+
+Router(config)#ip route 172.16.2.0 255.255.255.0 172.16.0.2
+Router(config)#ip route 0.0.0.0 0.0.0.0 172.16.0.1
