@@ -14,6 +14,11 @@ Router(config-if)#interface g2/0
 Router(config-if)#ip address 172.24.0.1 255.254.0.0
 Router(config-if)#no shutdown
 
+Router>
+Router>enable
+Router#configure terminal
+Router(config)#ip route 192.168.0.0 255.255.0.0 192.168.129.1
+Router(config)#ip route 0.0.0.0 0.0.0.0 10.0.0.1
 
 #R2
 
@@ -36,6 +41,14 @@ Router(config-if)#interface g3/0
 Router(config-if)#ip address 192.168.129.1 255.255.255.252
 Router(config-if)#no shutdown
 
+
+Router>enable
+Router#configure terminal
+
+Router(config)#ip route 172.24.0.0 255.254.0.0 192.168.129.2
+Router(config)#ip route 192.168.128.128 255.255.255.128 192.168.129.6
+Router(config)#ip route 0.0.0.0 0.0.0.0 192.168.0.1
+
 #R3
 
 
@@ -53,3 +66,38 @@ Router(config-if)#no shutdown
 Router(config-if)#interface g2/0
 Router(config-if)#ip address 192.168.129.6 255.255.255.252
 Router(config-if)#no shutdown
+
+Router>enable
+Router#configure terminal
+
+Router(config)#ip route 192.168.0.0 255.255.0.0 192.168.129.5
+Router(config)#ip route 0.0.0.0 0.0.0.0 172.16.0.1
+Router(config)#
+
+#ADSL
+
+
+Router>enable
+Router#configure terminal
+
+Router(config)#interface g0/0
+Router(config-if)#ip address 80.0.0.1 255.0.0.0
+Router(config-if)#no shutdown
+
+Router(config-if)#interface g1/0
+Router(config-if)#ip address 172.16.0.1 255.248.0.0
+Router(config-if)#no shutdown
+
+Router(config-if)#interface g2/0
+Router(config-if)#ip address 192.168.0.1 255.255.128.0
+Router(config-if)#no shutdown
+
+Router(config-if)#interface g3/0
+Router(config-if)#ip address 10.0.0.1 255.0.0.0
+Router(config-if)#no shutdown
+
+Router>enable
+Router#configure terminal
+
+Router(config)#ip route 192.168.0.0 255.255.0.0 192.168.0.2
+Router(config)#ip route 172.24.0.0 255.254.0.0 10.0.0.2
