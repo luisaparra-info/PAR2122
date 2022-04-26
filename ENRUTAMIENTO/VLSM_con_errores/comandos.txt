@@ -1,0 +1,87 @@
+#SWITCH PRINCIPAL
+
+#SWITCH PLANTA0
+
+#SWITCH PLANTA1
+
+#SWITCH SALA1_P0
+Switch>enable
+Switch#configure terminal
+
+Switch(config)#vlan 10
+Switch(config-vlan)#name DIRECCION
+Switch(config-vlan)#vlan 20
+Switch(config-vlan)#name PROFESORES
+Switch(config-vlan)#vlan 40
+Switch(config-vlan)#name WIFI
+Switch(config-vlan)#exit
+
+Switch(config)#interface range f0/1-5
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 20
+
+Switch(config-if-range)#interface range f0/6-10
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 10
+
+Switch(config-if-range)#interface f0/11
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 40
+
+Switch(config-if)#interface f0/12
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+
+Switch(config-if)#interface g0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20,40
+
+#SWITCH CLASE1_P1
+Switch>enable
+Switch#configure terminal
+
+Switch(config)#vlan 20
+Switch(config-vlan)#name PROFESORES
+Switch(config-vlan)#vlan 30
+Switch(config-vlan)#name ALUMNOS
+Switch(config-vlan)#exit
+
+Switch(config)#interface range f0/1-20
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 30
+
+Switch(config-if-range)#interface range f0/21-22
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 20
+
+Switch(config-if-range)#interface g0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 20,30
+
+#SWITCH CLASE2_P1
+Switch>enable
+Switch#configure terminal
+
+Switch(config)#vlan 20
+Switch(config-vlan)#name PROFESORES
+Switch(config-vlan)#vlan 30
+Switch(config-vlan)#name ALUMNOS
+Switch(config-vlan)#exit
+
+Switch(config)#interface range f0/1-20
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 30
+
+Switch(config-if-range)#interface range f0/21-22
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 20
+
+Switch(config-if-range)#interface g0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 20,30
+
+#R1
+
+#R2
+
+#R3
