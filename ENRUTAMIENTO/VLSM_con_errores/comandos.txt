@@ -1,8 +1,123 @@
 #SWITCH PRINCIPAL
+Switch>enable
+Switch#configure terminal
+
+Switch(config)#vlan 10
+Switch(config-vlan)#name DIRECCION
+Switch(config-vlan)#vlan 20
+Switch(config-vlan)#name PROFESORES
+Switch(config-vlan)#vlan 30
+Switch(config-vlan)#name ALUMNOS
+Switch(config-vlan)#vlan 40
+Switch(config-vlan)#name WIFI
+Switch(config-vlan)#vlan 50
+Switch(config-vlan)#name SERVIDORES
+Switch(config-vlan)#vlan 60
+Switch(config-vlan)#name PPP1
+Switch(config-vlan)#vlan 70
+Switch(config-vlan)#name PPP2
+
+Switch(config-vlan)#interface f0/20
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20,30,40,50
+
+Switch(config-if)#interface f0/21
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 20,30,50
+
+Switch(config-if)#interface f0/22
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 70
+
+Switch(config-if)#interface f0/23
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20
+
+Switch(config-if)#interface f0/24
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 30
+
+Switch(config-if)#interface g0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 60,70
+
+Switch(config-if)#interface g0/2
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 40,50,60
 
 #SWITCH PLANTA0
+Switch>enable
+Switch#configure terminal
+
+Switch(config)#vlan 10
+Switch(config-vlan)#name DIRECCION
+Switch(config-vlan)#vlan 20
+Switch(config-vlan)#name PROFESORES
+Switch(config-vlan)#vlan 30
+Switch(config-vlan)#name ALUMNOS
+Switch(config-vlan)#vlan 40
+Switch(config-vlan)#name WIFI
+Switch(config-vlan)#vlan 50
+Switch(config-vlan)#name SERVIDORES
+
+Switch(config-vlan)#interface range f0/1-7
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 10
+
+Switch(config-if-range)#interface range f0/8-9
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 50
+
+Switch(config-if-range)#interface f0/10
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 40
+
+Switch(config-if)#interface f0/11
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 30
+
+Switch(config-if)#interface g0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20,40
+
+Switch(config-if)#interface g0/2
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 10,20,30,40,50
 
 #SWITCH PLANTA1
+Switch>enable
+Switch#configure terminal
+
+Switch(config)#vlan 20
+Switch(config-vlan)#name PROFESORES
+Switch(config-vlan)#vlan 30
+Switch(config-vlan)#name ALUMNOS
+Switch(config-vlan)#vlan 50
+Switch(config-vlan)#name SERVIDORES
+
+Switch(config-vlan)#interface range f0/1-2
+Switch(config-if-range)#switchport mode access
+Switch(config-if-range)#switchport access vlan 50
+
+Switch(config-if-range)#interface f0/22
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 20,30
+
+Switch(config-if)#interface f0/23
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 20,30
+
+Switch(config-if)#interface f0/24
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 30
+
+Switch(config-if)#interface g0/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 20
+
+Switch(config-if)#interface g0/2
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allowed vlan 20,30,50
 
 #SWITCH SALA1_P0
 Switch>enable
@@ -81,7 +196,61 @@ Switch(config-if)#switchport mode trunk
 Switch(config-if)#switchport trunk allowed vlan 20,30
 
 #R1
+Router>enable
+Router#configure terminal
+
+Router(config)#interface g0/0
+Router(config-if)#ip address 80.0.0.1 255.0.0.0
+Router(config-if)#no shutdown
+
+Router(config-if)#interface g1/0
+Router(config-if)#no shutdown
+
+Router(config-if)#interface g1/0.40
+Router(config-subif)#encapsulation dot1Q 40
+Router(config-subif)#ip address 10.0.0.1 255.0.0.0
+
+Router(config-subif)#interface g1/0.50
+Router(config-subif)#encapsulation dot1Q 50
+Router(config-subif)#ip address 192.168.64.1 255.255.255.0
+
+Router(config-subif)#interface g1/0.60
+Router(config-subif)#encapsulation dot1Q 60
+Router(config-subif)#ip address 192.168.67.1 255.255.255.252
 
 #R2
+Router>enable
+Router#configure terminal
 
+Router(config)#interface g0/0
+Router(config-if)#no shutdown
+
+Router(config-if)#interface g0/0.60
+Router(config-subif)#encapsulation dot1Q 60
+Router(config-subif)#ip address 192.168.67.2 255.255.255.252
+
+Router(config-subif)#interface g0/0.70
+Router(config-subif)#encapsulation dot1Q 70
+Router(config-subif)#ip address 192.168.67.5 255.255.255.252
+
+Router(config-subif)#interface g1/0
+Router(config-if)#no shutdown
+Router(config-if)#ip address 192.168.0.1 255.255.192.0
 #R3
+Router>enable
+Router#configure terminal
+
+Router(config)#interface g0/0
+Router(config-if)#no shutdown
+
+Router(config-if)#interface g0/0.10
+Router(config-subif)#encapsulation dot1Q 10
+Router(config-subif)#ip address 192.168.66.1 255.255.255.0
+
+Router(config-subif)#interface g0/0.20
+Router(config-subif)#encapsulation dot1Q 20
+Router(config-subif)#ip address 192.168.65.1 255.255.255.0
+
+Router(config-subif)#interface g1/0
+Router(config-if)#no shutdown
+Router(config-if)#ip address 192.168.67.6 255.255.255.252
