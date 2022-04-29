@@ -218,6 +218,10 @@ Router(config-subif)#interface g1/0.60
 Router(config-subif)#encapsulation dot1Q 60
 Router(config-subif)#ip address 192.168.67.1 255.255.255.252
 
+Router>enable
+Router#configure terminal
+Router(config)#ip route 192.168.0.0 255.255.0.0 192.168.67.2
+
 #R2
 Router>enable
 Router#configure terminal
@@ -236,6 +240,13 @@ Router(config-subif)#ip address 192.168.67.5 255.255.255.252
 Router(config-subif)#interface g1/0
 Router(config-if)#no shutdown
 Router(config-if)#ip address 192.168.0.1 255.255.192.0
+
+Router>enable
+Router#configure terminal
+Router(config)#ip route 192.168.65.0 255.255.255.0 192.168.67.6
+Router(config)#ip route 192.168.66.0 255.255.255.0 192.168.67.6
+Router(config)#ip route 0.0.0.0 0.0.0.0 192.168.67.1
+
 #R3
 Router>enable
 Router#configure terminal
@@ -254,3 +265,7 @@ Router(config-subif)#ip address 192.168.65.1 255.255.255.0
 Router(config-subif)#interface g1/0
 Router(config-if)#no shutdown
 Router(config-if)#ip address 192.168.67.6 255.255.255.252
+
+Router>enable
+Router#configure terminal
+Router(config)#ip route 0.0.0.0 0.0.0.0 192.168.67.5
